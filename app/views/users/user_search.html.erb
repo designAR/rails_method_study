@@ -1,0 +1,17 @@
+<!-- app/views/users/user_search.html.erb -->
+<h1>User 検索</h1>
+
+<%= form_with url: user_search_path, method: :get do |form| %>
+  <div>
+    <%= form.label :name, "User Name:" %>
+    <%= form.text_field :name, placeholder: "Enter User Name" %>
+  </div>
+  <br>
+  <div>
+    <%= form.submit "検索" %>
+  </div>
+<% end %>
+
+<% if flash[:alert] %>
+  <p><%= flash[:alert] %></p>
+<% end %>
