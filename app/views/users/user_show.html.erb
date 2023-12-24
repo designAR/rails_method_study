@@ -1,6 +1,10 @@
 <!-- app/views/users/user_show.html.erb -->
 <h1>User 情報</h1>
 
+<% if flash[:notice] %>
+  <p class="notice"><%= flash[:notice] %></p>
+<% end %>
+
 <p>
   <strong>ID:</strong>
   <%= @user.id %>
