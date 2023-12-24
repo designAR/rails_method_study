@@ -27,4 +27,18 @@ class UsersController < ApplicationController
         @user =User.new
     end
 
+    def create
+        @user = User.create(user_param)
+      
+        if @user.persisted?
+          redirect_to user_path(@user), notice: 'ユーザーが登録されました。'
+        else
+          render :new
+        end
+    end      
+
+    private
+        def user_param
+            params.require(:user).permit(:name, :email, :password, :password_confirmation)
+        end
 end

@@ -1,0 +1,60 @@
+<!-- app/views/users/new.html.erb -->
+<h1>ユーザー登録</h1>
+
+<% if flash[:notice] %>
+  <p class="notice"><%= flash[:notice] %></p>
+<% end %>
+
+<% if flash[:alert] %>
+  <p class="alert"><%= flash[:alert] %></p>
+<% end %>
+
+<%= form_with model: @user, url: users_path, method: :post, local: true do |form| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, '名前' %>
+    <%= form.text_field :name, placeholder: 'お名前を入力してください' %>
+    <% if @user.errors[:name].any? %>
+      <p class="error"><%= @user.errors[:name].first %></p>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :email, 'メール' %>
+    <%= form.email_field :email, placeholder: 'Emailを入力してください' %>
+    <% if @user.errors[:email].any? %>
+      <div class="field_with_errors"><%= @user.errors[:email].join(", ") %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :password, 'パスワード' %>
+    <%= form.password_field :password, placeholder: 'PWを入力してください' %>
+    <% if @user.errors[:password].any? %>
+      <div class="field_with_errors"><%= @user.errors[:password].join(", ") %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :password_confirmation, 'パスワード確認' %>
+    <%= form.password_field :password_confirmation, placeholder: 'PWを再確認してください' %>
+    <% if @user.errors[:password_confirmation].any? %>
+      <div class="field_with_errors"><%= @user.errors[:password_confirmation].join(", ") %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit '登録' %>
+  </div>
+<% end %>
+

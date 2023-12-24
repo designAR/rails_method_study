@@ -4,4 +4,7 @@ Rails.application.routes.draw do
 
   get 'user_search', to: 'users#user_search', as: 'user_search'
 
+  # 회원가입
+  get 'signup', to: 'users#new', as: 'signup'
+  post 'users', to: 'users#create'
 end
