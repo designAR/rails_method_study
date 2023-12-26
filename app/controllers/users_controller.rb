@@ -4,8 +4,9 @@ class UsersController < ApplicationController
     end
 
     def user_show
-        @user = User.find(params[:id])
-    end
+        @user = User.find_by(id: params[:id])
+        redirect_to users_path, alert: 'ユーザーが見つかりませんでした。' if @user.nil?
+    end  
 
     def user_search
         if params[:name].blank?
@@ -36,6 +37,12 @@ class UsersController < ApplicationController
           render :new
         end
     end      
+       
+    def destroy
+        @user = User.find(params[:id])
+        @user.destroy
+        redirect_to users_path, notice: 'ユーザーが削除されました。'
+    end
 
     private
         def user_param
