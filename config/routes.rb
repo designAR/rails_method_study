@@ -7,4 +7,7 @@ Rails.application.routes.draw do
   # 회원가입
   get 'signup', to: 'users#new', as: 'signup'
   post 'users', to: 'users#create'
+
+  # 회원삭제
+  delete 'users/:id', to: 'users#destroy'
 end
