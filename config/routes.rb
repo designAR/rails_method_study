@@ -10,4 +10,9 @@ Rails.application.routes.draw do
 
   # 회원삭제
   delete 'users/:id', to: 'users#destroy'
+
+  # 회원수정
+  get 'users/:id/edit', to: 'users#edit', as: 'edit_user'
+  patch 'users/:id', to: 'users#update', as: 'update_user'
+
 end
