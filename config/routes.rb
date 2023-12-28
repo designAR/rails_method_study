@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # main
+  root "pages#home"
+
   get 'users', to: 'users#index'
   get 'users/:id', to: 'users#user_show', as: 'user'
 
