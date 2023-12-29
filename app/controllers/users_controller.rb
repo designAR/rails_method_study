@@ -28,6 +28,7 @@ class UsersController < ApplicationController
         @user =User.new
     end
 
+    # new -> save로 변경하기
     def create
         @user = User.create(user_param)
       
