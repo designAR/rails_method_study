@@ -1,8 +1,12 @@
 <h1>Pages#home</h1>
 <p>Find me in app/views/pages/home.html.erb</p>
 
-<%= link_to '회원가입', signup_path %>
+<% flash.each do |key, value| %>
+    <div class="flash <%= key %>"><%= value %></div>
+<% end %><br>
 
-<%= link_to '사용자 목록', users_path %>
+<%= link_to '会員登録', signup_path %><br><br>
 
-<%= link_to '로그인', login_path %>
+<%= link_to 'ユーザList', users_path %><br><br>
+
+<%= link_to 'Login', login_path %>

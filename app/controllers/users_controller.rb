@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+
+    before_action :correct_user, only: [:user_show, :edit, :update, :destroy]
+
     def index
         @users = User.all
     end
@@ -61,5 +64,13 @@ class UsersController < ApplicationController
     private
         def user_param
             params.require(:user).permit(:name, :email, :password, :password_confirmation)
+        end
+
+        def correct_user
+            @user = User.find_by(id: params[:id])
+            unless @user && @user == current_user
+              flash[:alert] = 'ユーザー情報に接近できません。。Loginしてください！'
+              redirect_to root_path
+            end
         end
 end
