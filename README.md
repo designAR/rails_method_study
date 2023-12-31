@@ -11,4 +11,4 @@ Day07 : updateメソッド<br>
 Day08 : has_secure_passwordメソッド<br>
 Day09 : authenticateメソッド<br>
 Day10 : before_actionメソッド<br>
-
+Day11 : whereメソッド<br>
