@@ -1,26 +1,37 @@
 <!-- app/views/users/index.html.erb -->
 <h1>登録されている Users</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
+<% if @users.any? %>
+  <table>
+    <thead>
       <tr>
-        <td><%= user.id %></td>
-        <td><%= user.name %></td>
-        <td><%= user.email %></td>
-        <td>
-          <%= link_to '수정', edit_user_path(user), class: 'action-button' %><br>
-          <%= button_to '삭제', user_path(user), method: :delete, class: 'action-button' %>
-        </td>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Actions</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td>
+            <%= link_to '修正', edit_user_path(user), class: 'action-button' %><br>
+            <%= button_to '削除', user_path(user), method: :delete, class: 'action-button' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% elsif @search_performed %>
+  <p>検索結果がありません。。</p>
+<% end %>
+
+  <%= form_with(url: users_path, method: :get, local: true) do |form| %>
+    <div class="search-field">
+      <%= form.label :search, "ユーザー検索(email):" %>
+      <%= form.text_field :search, value: params[:search] %>
+      <%= form.submit "検索", class: 'action-button' %>
+    </div>
+  <% end %>

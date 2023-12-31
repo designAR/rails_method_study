@@ -3,7 +3,13 @@ class UsersController < ApplicationController
     before_action :correct_user, only: [:user_show, :edit, :update, :destroy]
 
     def index
-        @users = User.all
+        if params[:search].present?
+          @users = User.where("email LIKE ?", "%#{params[:search]}%")
+          @search_performed = true
+        else
+          @users = User.all
+          @search_performed = false
+        end
     end
 
     def user_show
