@@ -1,5 +1,12 @@
 <!-- app/views/users/index.html.erb -->
 <h1>登録されている Users</h1>
+
+<%= form_with(url: users_path, method: :get, local: true) do |form| %>
+  <%= form.label :sort_by, "整列 基準:" %>
+  <%= form.select :sort_by, options_for_select([['生まれ順', 'created_at'], ['名前順', 'name']]), include_blank: true %>
+  <%= form.submit "整列" %>
+<% end %>
+
 <% if @users.any? %>
   <table>
     <thead>
@@ -35,3 +42,6 @@
       <%= form.submit "検索", class: 'action-button' %>
     </div>
   <% end %>
+
+<br>
+<%= link_to 'main', root_path %>
