@@ -10,6 +10,15 @@ class UsersController < ApplicationController
           @users = User.all
           @search_performed = false
         end
+
+        case params[:sort_by]
+        when 'created_at'
+            @users = @users.order(created_at: :desc)
+        when 'name'
+            @users = @users.order(:name)
+        end
+    
+        @search_performed = params[:search].present?
     end
 
     def user_show
@@ -37,17 +46,16 @@ class UsersController < ApplicationController
         @user =User.new
     end
 
-    # new -> save로 변경하기
     def create
-        @user = User.create(user_param)
-      
-        if @user.persisted?
-          redirect_to user_path(@user), notice: 'ユーザーが登録されました。'
-        else
+      @user = User.new(user_param)
+      if @user.save
+          redirect_to user_path(@user), notice: "User successfully created"
+      else
+          Rails.logger.info(@user.errors.inspect)
           render :new
-        end
-    end      
-       
+      end
+    end
+
     def destroy
         @user = User.find(params[:id])
         @user.destroy
@@ -67,16 +75,27 @@ class UsersController < ApplicationController
         end
     end      
 
+    def confirm_email
+        user= User.find_by(confimation_token: params[:token])
+        if user
+            user.update(confirmed_at: Time.current, confimation_token: nil)
+            redirect_to root_path, notice: 'Your email has been confirmed'
+        else
+            redirect_to root_path, alert: 'Invaild confirmation link'
+        end
+    end
+
     private
         def user_param
             params.require(:user).permit(:name, :email, :password, :password_confirmation)
         end
 
         def correct_user
-            @user = User.find_by(id: params[:id])
-            unless @user && @user == current_user
-              flash[:alert] = 'ユーザー情報に接近できません。。Loginしてください！'
-              redirect_to root_path
-            end
+          @user = User.find_by(id: params[:id])
+          unless @user && @user == current_user
+            flash[:alert] = 'Loginしてください！'
+            redirect_to root_path
+          end
         end
+          
 end
