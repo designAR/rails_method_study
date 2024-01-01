@@ -12,3 +12,4 @@ Day08 : has_secure_passwordメソッド<br>
 Day09 : authenticateメソッド<br>
 Day10 : before_actionメソッド<br>
 Day11 : whereメソッド<br>
+Day12 : orderメソッド<br>
