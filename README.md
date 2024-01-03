@@ -13,3 +13,5 @@ Day09 : authenticateメソッド<br>
 Day10 : before_actionメソッド<br>
 Day11 : whereメソッド<br>
 Day12 : orderメソッド<br>
+Day13 : require, permitメソッド<br>
+Day14 : redirect_toメソッド<br>
